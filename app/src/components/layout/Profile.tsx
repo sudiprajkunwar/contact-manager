@@ -1,10 +1,17 @@
-import React from "react";
-import { Button, Col, Dropdown, Menu, Row } from "antd";
-import styled from "@emotion/styled";
-import { Color } from "../../constants/Color";
+import React, { useEffect } from "react";
+
 import Cookies from "js-cookie";
-import { LogoutOutlined } from "@ant-design/icons";
+import styled from "@emotion/styled";
 import { useHistory } from "react-router";
+import { LogoutOutlined } from "@ant-design/icons";
+import { Avatar, Button, Col, Dropdown, Menu, Row } from "antd";
+
+import { Color } from "../../constants/Color";
+
+import { getFirstLetter } from "../../utils/getFirstLetter";
+import { useAppDispatch, useAppSelector } from "../../utils/reduxHooks";
+import { getUserDetail } from "../../redux/actions/userAction";
+import { IParamsUserId } from "../../interfaces";
 
 const Image = styled("img")`
   width: 40px;
@@ -21,6 +28,7 @@ const FullName = styled("p")`
   color: ${Color.textDark};
   margin-bottom: 0;
   line-height: 25px;
+  text-transform: capitalize;
 `;
 
 const Designation = styled("p")`
@@ -31,22 +39,23 @@ const Designation = styled("p")`
   line-height: 12px;
 `;
 
-const ProfileData = {
-  imageUrl: "https://i.pravatar.cc/",
-  firstName: "Json",
-  lastName: "Statham",
-  designation: "Actor",
-};
-
 const ProfileSection = () => {
   const history = useHistory();
+  const dispatch = useAppDispatch();
+  const { data } = useAppSelector((state) => state.users);
+  const userId: any = Cookies.get("userId");
+
+  useEffect(() => {
+    dispatch(getUserDetail({ params: { user_id: userId } }));
+  }, [dispatch]);
 
   const logOut = () => {
     Cookies.remove("token");
-    Cookies.remove("inventoryId");
-    // dispatch({
-    //   type: "LOGOUT_USER",
-    // });
+    Cookies.remove("userId");
+
+    dispatch({
+      type: "SIGNOUT_USER",
+    });
     history.push("/");
   };
   const menu = (
@@ -60,15 +69,10 @@ const ProfileSection = () => {
     </Menu>
   );
   return (
-    <Row
-      justify="space-between"
-      align="middle"
-      gutter={16}
-      // style={isSelected ? {} : { marginLeft: "auto" }}
-    >
+    <Row justify="space-between" align="middle" gutter={16}>
       <Col>
-        <FullName>{`${ProfileData.firstName} ${ProfileData.lastName}`}</FullName>
-        <Designation>{ProfileData.designation}</Designation>
+        <FullName>{data?.full_name}</FullName>
+        <Designation>{data?.email}</Designation>
       </Col>
       <Col style={{ lineHeight: 0 }}>
         <Dropdown
@@ -77,7 +81,15 @@ const ProfileSection = () => {
           trigger={["click"]}
           arrow
         >
-          <Image src={ProfileData.imageUrl} />
+          <Avatar
+            style={{
+              color: "#f56a00",
+              backgroundColor: "#fde3cf",
+              cursor: "pointer",
+            }}
+          >
+            {getFirstLetter(data?.full_name)}
+          </Avatar>
         </Dropdown>
       </Col>
     </Row>

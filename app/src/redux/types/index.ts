@@ -1,7 +1,9 @@
-import { loginTypes } from "./loginTypes";
+import { contacts } from "./contactsTypes";
+import { users } from "./usersTypes";
 
 const types = {
-  ...loginTypes,
+  ...users,
+  ...contacts,
 };
 
 export default types;

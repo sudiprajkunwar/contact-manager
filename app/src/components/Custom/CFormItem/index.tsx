@@ -9,7 +9,6 @@ type Props = FormItemProps & {
 };
 const FormItem = styled(Form.Item)`
   margin-bottom: 15px;
-
   .ant-form-item-label {
     line-height: 30px;
     padding: 0;

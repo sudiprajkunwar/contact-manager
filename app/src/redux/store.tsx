@@ -10,6 +10,7 @@ const middleware = [sagaMiddleware];
 const store = createStore(RootReducer, applyMiddleware(...middleware));
 
 export type RootState = ReturnType<typeof RootReducer>;
+export type AppDispatch = typeof store.dispatch;
 
 sagaMiddleware.run(RootSaga);
 export default store;

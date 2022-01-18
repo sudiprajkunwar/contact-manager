@@ -70,6 +70,6 @@ const StyledTable = styled(Table)`
   }
 `;
 
-export const CTable = (props: any) => {
+export const CTable = React.forwardRef((props: any, ref: any) => {
   return <StyledTable size="large" {...props} />;
-};
+});
