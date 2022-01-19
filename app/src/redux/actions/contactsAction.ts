@@ -43,6 +43,20 @@ export function deleteContactSuccess(payload: IDeleteContact) {
   };
 }
 
+export function updateFavouriteContact(payload: any) {
+  return {
+    type: types.UPDATE_FAVOURITE_CONTACT,
+    payload,
+  };
+}
+
+export function updateFavouriteContactSuccess(payload: IDeleteContact) {
+  return {
+    type: types.UPDATE_FAVOURITE_CONTACT_SUCCESS,
+    payload,
+  };
+}
+
 export function updateContact(payload: IContact) {
   return {
     type: types.UPDATE_CONTACT,

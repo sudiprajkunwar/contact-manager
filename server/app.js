@@ -138,6 +138,27 @@ app.post("/create-contact", auth, async (req, res) => {
   }
 });
 
+// add favourite
+app.put("/favourite", auth, async (req, res) => {
+  const { contact_id, user_id, favourite } = req.body;
+
+  try {
+    const userId = await Contact.findOne({ user_id, contact_id });
+
+    if (userId) {
+      const contact = await Contact.findByIdAndUpdate(contact_id, {
+        favourite,
+      });
+
+      console.log(contact);
+
+      return res.status(200).json(contact);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+});
+
 // get all contacts
 app.get("/fetch-contacts", auth, async (req, res) => {
   try {
@@ -151,6 +172,7 @@ app.get("/fetch-contacts", auth, async (req, res) => {
     }
 
     const contact = await Contact.find({ user_id });
+
     res.status(200).json(contact);
   } catch (err) {
     console.log(err);
@@ -173,6 +195,7 @@ app.get("/user-detail", auth, async (req, res) => {
       id: user._id,
       full_name: user.full_name,
       email: user.email,
+      favrite: user.favrite,
     };
 
     res.status(200).json(userDetail);

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 
 import Cookies from "js-cookie";
 import styled from "@emotion/styled";
@@ -12,6 +12,7 @@ import {
   Col,
   Popconfirm,
   notification,
+  Rate,
 } from "antd";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 
@@ -22,6 +23,7 @@ import { getFirstLetter } from "../../utils/getFirstLetter";
 import {
   deleteContact,
   getAllContacts,
+  updateFavouriteContact,
 } from "../../redux/actions/contactsAction";
 import { useAppDispatch, useAppSelector } from "../../utils/reduxHooks";
 
@@ -46,11 +48,34 @@ const Delete = styled(DeleteOutlined)`
   font-size: 18px;
 `;
 
+const ListItem = styled(List.Item)`
+  .ant-list-item-meta-avatar {
+    align-self: center;
+    .ant-avatar {
+      color: rgb(245, 106, 0);
+      background-color: rgb(253, 227, 207);
+    }
+  }
+`;
+
 const Contacts = () => {
   const history = useHistory();
   const dispatch = useAppDispatch();
   const { isLoading, data } = useAppSelector((state) => state.contacts);
+
   const userId: any = Cookies.get("userId");
+
+  const filterData: any = useMemo(() => {
+    const favouriteData = data
+      .filter((item: IContact) => item.favourite === 1)
+      .sort();
+
+    const normalData = data
+      .filter((item: IContact) => item.favourite === 0)
+      .sort();
+
+    return [...favouriteData, ...normalData];
+  }, [data]);
 
   useEffect(() => {
     dispatch(getAllContacts({ params: { user_id: userId } }));
@@ -77,26 +102,59 @@ const Contacts = () => {
     );
   };
 
+  const onClickFavorite = (value: number, id: string, userId: string) => {
+    const data = {
+      user_id: userId,
+      contact_id: id,
+      favourite: value,
+    };
+
+    const favMessage = value ? "added" : "removed";
+    dispatch(
+      updateFavouriteContact({
+        ...data,
+        onSuccess: () => {
+          notification.success({
+            message: "Success",
+            description: `Favourite contact ${favMessage} successfully`,
+            duration: 2,
+          });
+          dispatch(getAllContacts({ params: { user_id: userId } }));
+        },
+      })
+    );
+  };
+
   const columns = [
+    {
+      title: "",
+      key: "fav",
+      width: 30,
+      render: (record: IContact) => {
+        return (
+          <Rate
+            count={1}
+            value={record.favourite}
+            onChange={(value: number) =>
+              onClickFavorite(value, record._id, userId)
+            }
+          />
+        );
+      },
+    },
     {
       title: "Contacts",
       key: "contacts",
       width: 300,
       render: (record: IContact) => {
         return (
-          <List.Item>
+          <ListItem>
             <List.Item.Meta
-              avatar={
-                <Avatar
-                  style={{ color: "#f56a00", backgroundColor: "#fde3cf" }}
-                >
-                  {getFirstLetter(record.full_name)}
-                </Avatar>
-              }
+              avatar={<Avatar>{getFirstLetter(record.full_name)}</Avatar>}
               title={record.full_name}
               description={record.email}
             />
-          </List.Item>
+          </ListItem>
         );
       },
     },
@@ -150,7 +208,7 @@ const Contacts = () => {
       <StyledCard>
         <TableWrapper>
           <CTable
-            dataSource={data && data}
+            dataSource={filterData}
             columns={columns}
             loading={isLoading}
             size="small"

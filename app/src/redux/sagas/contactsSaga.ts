@@ -11,6 +11,7 @@ import {
   deleteContactSuccess,
   getAllContactsSuccess,
   updateContactSuccess,
+  updateFavouriteContactSuccess,
 } from "../actions/contactsAction";
 
 function* getAllContacts(action: AnyAction) {
@@ -87,9 +88,28 @@ function* deleteContact(action: AnyAction) {
   }
 }
 
+function* updateFavouriteContact(action: AnyAction) {
+  try {
+    const response: AxiosResponse = yield call(() =>
+      Axios.put("favourite/", action.payload)
+    );
+    yield put(updateFavouriteContactSuccess(response.data));
+    yield call(action.payload.onSuccess);
+  } catch (error: any) {
+    yield put(contactsRequestFailed(error));
+    notification.error({
+      message: "Updating Favourite contacts failed.",
+      description:
+        error.response && error.response.data && error.response.data.detail,
+      duration: 2,
+    });
+  }
+}
+
 export function* contactsSaga() {
   yield takeEvery(types.GETALL_CONTACTS, getAllContacts);
   yield takeEvery(types.CREATE_CONTACT, createContacts);
   yield takeEvery(types.DELETE_CONTACT, deleteContact);
   yield takeEvery(types.UPDATE_CONTACT, updateContact);
+  yield takeEvery(types.UPDATE_FAVOURITE_CONTACT, updateFavouriteContact);
 }

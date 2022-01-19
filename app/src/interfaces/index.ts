@@ -30,6 +30,7 @@ export interface IContact {
   address: string;
   email: string;
   phone: number;
+  favourite: number;
 }
 
 export interface IUser {

@@ -8,12 +8,12 @@ const initialState = {
 };
 
 export const contactsReducer = (state = initialState, action: AnyAction) => {
-  debugger;
   switch (action.type) {
     case types.GETALL_CONTACTS:
     case types.CREATE_CONTACT:
     case types.UPDATE_CONTACT:
     case types.DELETE_CONTACT:
+    case types.UPDATE_FAVOURITE_CONTACT:
       return {
         ...state,
         isLoading: true,
@@ -28,6 +28,7 @@ export const contactsReducer = (state = initialState, action: AnyAction) => {
         error: null,
       };
 
+    case types.UPDATE_FAVOURITE_CONTACT_SUCCESS:
     case types.DELETE_CONTACT_SUCCESS:
       return {
         ...state,
