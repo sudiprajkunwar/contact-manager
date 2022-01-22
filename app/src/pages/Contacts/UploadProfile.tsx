@@ -34,6 +34,9 @@ const UploadProfile = () => {
   return (
     <ImgCrop>
       <Upload
+        action={
+          "https://www.googleapis.com/upload/drive/v3/files?uploadType=media"
+        }
         listType="picture-card"
         fileList={fileList}
         onChange={onChange}
