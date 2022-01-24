@@ -131,7 +131,7 @@ const ContactForm = (props: any) => {
                 },
                 {
                   pattern: /^\d{10}$/,
-                  message: "Phone number should be at least 10 digit!",
+                  message: "Phone number should be 10 digit!",
                 },
               ]}
             >
