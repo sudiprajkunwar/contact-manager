@@ -9,6 +9,7 @@ const contactSchema = new mongoose.Schema(
     email: { type: String },
     phone: { type: Number, default: null },
     favourite: { type: Number, default: 0 },
+    image: { type: String },
   },
   { versionKey: false }
 );

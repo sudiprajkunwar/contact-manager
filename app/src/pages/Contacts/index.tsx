@@ -150,7 +150,7 @@ const Contacts = () => {
         return (
           <ListItem>
             <List.Item.Meta
-              avatar={<Avatar>{getFirstLetter(record.full_name)}</Avatar>}
+              avatar={<Avatar src={record.image} />}
               title={record.full_name}
               description={record.email}
             />

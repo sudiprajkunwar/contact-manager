@@ -109,10 +109,14 @@ app.post("/signin", async (req, res) => {
 
 app.post("/create-contact", auth, async (req, res) => {
   try {
-    const { full_name, email, phone, address, user_id } = req.body;
+    const { full_name, email, phone, address, user_id, image } = req.body;
 
     if (!(email && full_name && phone && address)) {
       return res.status(400).send({ detail: "All input is required" });
+    }
+
+    if (!image) {
+      return res.status(400).send({ detail: "Please upload image" });
     }
 
     const oldContact = await Contact.findOne({ phone, user_id });
@@ -130,6 +134,7 @@ app.post("/create-contact", auth, async (req, res) => {
       phone,
       email: email.toLowerCase(), // sanitize: convert email to lowercase
       address,
+      image,
     });
 
     res.status(201).json(contact);
@@ -149,8 +154,6 @@ app.put("/favourite", auth, async (req, res) => {
       const contact = await Contact.findByIdAndUpdate(contact_id, {
         favourite,
       });
-
-      console.log(contact);
 
       return res.status(200).json(contact);
     }
@@ -226,12 +229,16 @@ app.delete("/remove-contact", auth, async (req, res) => {
 
 app.put("/update-contact", auth, async (req, res) => {
   try {
-    const { full_name, email, phone, address, user_id, _id } = req.body;
+    const { full_name, email, phone, address, user_id, _id, image } = req.body;
 
-    const contactData = { full_name, email, phone, address };
+    const contactData = { full_name, email, phone, address, image };
 
     if (!(email && full_name && phone && address)) {
       return res.status(400).send({ detail: "All input is required" });
+    }
+
+    if (!image) {
+      return res.status(400).send({ detail: "Please upload image" });
     }
 
     const oldContact = await Contact.findOne({
