@@ -5,8 +5,6 @@ import styled from "@emotion/styled";
 import { message, Upload } from "antd";
 import { PlusOutlined, LoadingOutlined } from "@ant-design/icons";
 
-import { getBase64 } from "../../utils/getbase64";
-
 const UploadPic = styled(Upload)`
   .ant-upload {
     position: absolute;
@@ -54,11 +52,9 @@ const UploadProfile = (props: uploadProfileProps) => {
       return;
     }
     if (info.file.status === "done") {
-      // Get this url from response in real world.
-      getBase64(info.file.originFileObj, (imageUrl: any) => {
-        setLoading(false);
-        setImageurl(imageUrl);
-      });
+      const displayImg = info.file.response.data.image.url;
+      setImageurl(displayImg);
+      setLoading(false);
     }
   };
 

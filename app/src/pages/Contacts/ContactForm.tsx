@@ -42,8 +42,6 @@ const ContactForm = (props: any) => {
 
   const contactDetail = props.location.state;
 
-  console.log(contactDetail, "contactDetail");
-
   useEffect(() => {
     form.setFieldsValue({ ...contactDetail });
   }, [contactDetail]);

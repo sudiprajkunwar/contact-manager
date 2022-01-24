@@ -31,6 +31,7 @@ export interface IContact {
   email: string;
   phone: number;
   favourite: number;
+  image: string;
 }
 
 export interface IUser {
