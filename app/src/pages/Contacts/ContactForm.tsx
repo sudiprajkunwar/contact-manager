@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 import { Col, Form, notification, Row, Space } from "antd";
 import styled from "@emotion/styled";
@@ -29,7 +29,12 @@ const FormWrapper = styled(Row)`
   padding: 20px;
 `;
 
+const UploadCol = styled(Col)`
+  position: relative;
+`;
+
 const ContactForm = (props: any) => {
+  const [imageurl, setImageurl] = useState<string>("");
   const dispatch = useAppDispatch();
   const history = useHistory();
   const userId = Cookies.get("userId");
@@ -44,7 +49,7 @@ const ContactForm = (props: any) => {
   }, [contactDetail]);
 
   const saveForm = (values: any) => {
-    const data = { ...values, user_id: userId };
+    const data = { ...values, user_id: userId, image: imageurl };
 
     dispatch(
       createContacts({
@@ -62,7 +67,12 @@ const ContactForm = (props: any) => {
   };
 
   const EditForm = (values: any) => {
-    const data = { ...values, user_id: userId, _id: contactDetail._id };
+    const data = {
+      ...values,
+      user_id: userId,
+      _id: contactDetail._id,
+      image: imageurl,
+    };
 
     dispatch(
       updateContact({
@@ -91,9 +101,9 @@ const ContactForm = (props: any) => {
         cancel="Back"
       />
       <FormWrapper>
-        <Col flex={2}>
-          <UploadProfile />
-        </Col>
+        <UploadCol flex={2}>
+          <UploadProfile setImageurl={setImageurl} imageurl={imageurl} />
+        </UploadCol>
 
         <Col flex={1}>
           <Col span={16}>
