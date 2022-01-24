@@ -129,6 +129,10 @@ const ContactForm = (props: any) => {
                   required: true,
                   message: "Please enter your phone number!",
                 },
+                {
+                  pattern: /^\d{10}$/,
+                  message: "Phone number should be at least 10 digit!",
+                },
               ]}
             >
               <CInputNumber placeholder="Enter Your Number" />

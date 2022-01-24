@@ -81,7 +81,13 @@ const Register = () => {
 
         <CFormItem
           name="password"
-          rules={[{ required: true, message: "Please input your password!" }]}
+          rules={[
+            { required: true, message: "Please input your password!" },
+            {
+              pattern: /.{6,}$/,
+              message: "Phone number should be at least 6 digit!",
+            },
+          ]}
         >
           <CInputPassword placeholder="Password" />
         </CFormItem>
