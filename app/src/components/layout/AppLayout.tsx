@@ -21,6 +21,7 @@ const PrimaryHeader = styled(Header)`
 `;
 const StyledLayout = styled(Layout)`
   background: #f9fcff 0% 0% no-repeat padding-box;
+  height: 100vh;
 `;
 
 export const TableWrapper = styled.div`
@@ -29,7 +30,7 @@ export const TableWrapper = styled.div`
 
 const AppLayout: React.FC = () => {
   return (
-    <StyledLayout className="layout" style={{ height: "100vh" }}>
+    <StyledLayout className="layout">
       <PrimaryHeader>
         <div>
           <Logo src={contactmanager} alt="logo" />

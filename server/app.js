@@ -171,7 +171,9 @@ app.get("/fetch-contacts", auth, async (req, res) => {
 
     // Check if account exists
     if (!user) {
-      return res.status(404).send({ detail: "User does not have contacts." });
+      return res
+        .status(404)
+        .send({ detail: "User does not have any contacts." });
     }
 
     const contact = await Contact.find({ user_id });
