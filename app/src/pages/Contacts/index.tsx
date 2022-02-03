@@ -13,6 +13,7 @@ import {
   Popconfirm,
   notification,
   Rate,
+  Empty,
 } from "antd";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 
@@ -197,6 +198,15 @@ const Contacts = () => {
     },
   ];
 
+  let locale = {
+    emptyText: (
+      <Empty
+        image={Empty.PRESENTED_IMAGE_DEFAULT}
+        description="User doesnot have any contact added"
+      />
+    ),
+  };
+
   return (
     <div>
       <TopHeader
@@ -213,6 +223,7 @@ const Contacts = () => {
             loading={isLoading}
             size="small"
             rowKey="Id"
+            locale={locale}
           />
         </TableWrapper>
       </StyledCard>
