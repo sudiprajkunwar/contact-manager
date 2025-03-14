@@ -1,7 +1,7 @@
 # contact-manager
 
 ## App
-Open [https://contact-manager-app-244k.onrender.com/contact]([http://localhost:3000](https://contact-manager-app-244k.onrender.com/contact) to view it in the browser.
+Open [https://contact-manager-app-244k.onrender.com](https://contact-manager-app-244k.onrender.com) to view it in the browser.
 
 ## Setup Environment
 
