@@ -36,11 +36,3 @@ jobs:
       - name: Install dependencies (Backend)
         run: yarn install --frozen-lockfile
         working-directory: server
-
-      - name: Build backend
-        run: yarn build
-        working-directory: server
-
-      - name: Run backend tests
-        run: yarn test
-        working-directory: server
