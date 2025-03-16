@@ -1,8 +1,8 @@
 import React from "react";
-import { Col, Row } from "antd";
 import styled from "@emotion/styled";
-import { Color } from "../../constants/Color";
 import { Link } from "react-router-dom";
+
+import { Color } from "../../constants/Color";
 
 const Wrapper = styled("div")`
   width: 100%;

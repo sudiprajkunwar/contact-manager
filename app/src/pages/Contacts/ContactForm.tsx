@@ -1,19 +1,18 @@
+import Cookies from "js-cookie";
+import { useHistory } from "react-router";
 import React, { useEffect, useState } from "react";
 
-import { Col, Form, notification, Row, Space } from "antd";
 import styled from "@emotion/styled";
+import { Col, Form, notification, Row } from "antd";
 
-import TopHeader from "../../components/TopHeader";
-import { CFormItem, CInput, CInputNumber } from "../../components/Custom";
-import UploadProfile from "./UploadProfile";
-import { useAppDispatch } from "../../utils/reduxHooks";
 import {
   createContacts,
   updateContact,
 } from "../../redux/actions/contactsAction";
-import { useHistory } from "react-router";
-import Cookies from "js-cookie";
-import { IContact } from "../../interfaces";
+import UploadProfile from "./UploadProfile";
+import TopHeader from "../../components/TopHeader";
+import { useAppDispatch } from "../../utils/reduxHooks";
+import { CFormItem, CInput, CInputNumber } from "../../components/Custom";
 
 const StyledForm = styled(Form)`
   .ant-form-item-label {
@@ -44,7 +43,7 @@ const ContactForm = (props: any) => {
 
   useEffect(() => {
     form.setFieldsValue({ ...contactDetail });
-  }, [contactDetail]);
+  }, [contactDetail, form]);
 
   const saveForm = (values: any) => {
     const data = { ...values, user_id: userId, image: imageurl };

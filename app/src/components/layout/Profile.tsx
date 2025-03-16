@@ -9,17 +9,8 @@ import { Avatar, Button, Col, Dropdown, Menu, Row } from "antd";
 import { Color } from "../../constants/Color";
 
 import { getFirstLetter } from "../../utils/getFirstLetter";
-import { useAppDispatch, useAppSelector } from "../../utils/reduxHooks";
 import { getUserDetail } from "../../redux/actions/userAction";
-import { IParamsUserId } from "../../interfaces";
-
-const Image = styled("img")`
-  width: 40px;
-  height: 40px;
-  box-shadow: 3px 10px 20px #363e931c;
-  border-radius: 15px;
-  cursor: pointer;
-`;
+import { useAppDispatch, useAppSelector } from "../../utils/reduxHooks";
 
 const FullName = styled("p")`
   font-size: 14px;
@@ -47,7 +38,7 @@ const ProfileSection = () => {
 
   useEffect(() => {
     dispatch(getUserDetail({ params: { user_id: userId } }));
-  }, [dispatch]);
+  }, [dispatch, userId]);
 
   const logOut = () => {
     Cookies.remove("token");

@@ -1,8 +1,8 @@
-import React, { useEffect, useMemo } from "react";
-
 import Cookies from "js-cookie";
 import styled from "@emotion/styled";
 import { useHistory } from "react-router-dom";
+import React, { useEffect, useMemo } from "react";
+
 import {
   Tooltip,
   Card,
@@ -20,7 +20,6 @@ import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import { IContact } from "../../interfaces";
 import { CTable } from "../../components/Custom";
 import TopHeader from "../../components/TopHeader";
-import { getFirstLetter } from "../../utils/getFirstLetter";
 import {
   deleteContact,
   getAllContacts,
@@ -80,7 +79,7 @@ const Contacts = () => {
 
   useEffect(() => {
     dispatch(getAllContacts({ params: { user_id: userId } }));
-  }, [dispatch]);
+  }, [dispatch, userId]);
 
   const OnDelete = (id: string, userId: string) => {
     const rawData = {
