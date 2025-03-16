@@ -34,14 +34,13 @@ jobs:
 
       # Install dependencies and build the backend (server)
       - name: Install dependencies (Backend)
-        run: npm ci
+        run: yarn install --frozen-lockfile
         working-directory: server
 
       - name: Build backend
-        run: npm run build
+        run: yarn build
         working-directory: server
 
-      # Run backend tests
       - name: Run backend tests
-        run: npm test
+        run: yarn test
         working-directory: server

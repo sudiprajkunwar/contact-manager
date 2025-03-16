@@ -34,7 +34,7 @@ function* signinUser(action: AnyAction) {
 
 function* signupUser(action: AnyAction) {
   try {
-    const response: AxiosResponse = yield call(() =>
+    yield call(() =>
       Axios.post("signup/", action.payload)
     );
     yield put(signupUserSuccess());

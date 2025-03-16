@@ -1,12 +1,13 @@
-import styled from "@emotion/styled";
-import { Layout, Image } from "antd";
 import React from "react";
-import Profile from "./Profile";
+import { Layout } from "antd";
+import styled from "@emotion/styled";
 import { Route, Switch } from "react-router";
-import { IRoutesType } from "../../interfaces";
-import { routers } from "../../routes/routes";
 
+import Profile from "./Profile";
+import { routers } from "../../routes/routes";
+import { IRoutesType } from "../../interfaces";
 import contactmanager from "../../asset/cm.png";
+
 const { Header, Content } = Layout;
 
 const Logo = styled.img``;
